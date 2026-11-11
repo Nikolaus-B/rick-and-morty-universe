@@ -27,7 +27,7 @@ export default async function LocationPage({ params }: P) {
   const l = await load((await params).id);
   if (!l) notFound();
   const crumbs: Crumb[] = [];
-  if (l.dimension) crumbs.push({ label: l.dimension.name, href: `/browse?dimension=${l.dimension.id}` });
+  if (l.dimension) crumbs.push({ label: l.dimension.name, href: `/dimension/${l.dimension.id}` });
   crumbs.push({ label: l.name });
   return (
     <main className="mx-auto max-w-6xl space-y-6 px-4 py-6">

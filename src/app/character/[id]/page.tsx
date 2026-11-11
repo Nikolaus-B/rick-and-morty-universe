@@ -37,7 +37,7 @@ export default async function CharacterPage({ params }: P) {
   if (!c) notFound();
   const dim = c.location?.dimension;
   const crumbs: Crumb[] = [];
-  if (dim) crumbs.push({ label: dim.name, href: `/browse?dimension=${dim.id}` });
+  if (dim) crumbs.push({ label: dim.name, href: `/dimension/${dim.id}` });
   if (c.location) crumbs.push({ label: c.location.name, href: `/location/${c.location.id}` });
   crumbs.push({ label: c.name });
   const seasons = [...new Set(c.episodes.map((e) => e.season))];
