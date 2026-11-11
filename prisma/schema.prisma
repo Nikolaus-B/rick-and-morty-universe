@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CharacterStatus {
+  ALIVE
+  DEAD
+  UNKNOWN
+}
+
+model Dimension {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  slug      String     @unique
+  color     String?
+  locations Location[]
+}
+
+model Location {
+  id          Int        @id
+  name        String
+  type        String?
+  dimensionId Int?
+  dimension   Dimension? @relation(fields: [dimensionId], references: [id])
+  color       String?
+  size        Float      @default(1)
+  orbitRadius Float      @default(0)
+  orbitAngle  Float      @default(0)
+  natives     Character[] @relation("Origin")
+  residents   Character[] @relation("CurrentLocation")
+
+  @@index([dimensionId])
+}
+
+model Character {
+  id         Int             @id
+  name       String
+  status     CharacterStatus @default(UNKNOWN)
+  species    String
+  type       String?
+  gender     String
+  imageUrl   String
+  originId   Int?
+  origin     Location?       @relation("Origin", fields: [originId], references: [id])
+  locationId Int?
+  location   Location?       @relation("CurrentLocation", fields: [locationId], references: [id])
+  episodes   Episode[]
+  modelUrl   String?
+  featured   Boolean         @default(false)
+
+  @@index([name])
+  @@index([species])
+  @@index([locationId])
+}
+
+model Episode {
+  id         Int         @id
+  name       String
+  code       String      @unique
+  season     Int
+  number     Int
+  airDate    DateTime?
+  characters Character[]
+
+  @@index([season])
+}

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #05070d;
+  --color-panel: #0e1320;
+  --color-elevated: #161d2f;
+  --color-portal-500: #97ce4c;
+  --color-portal-300: #c4f27a;
+  --color-portal-glow: rgba(151, 206, 76, 0.35);
+  --color-rick-300: #a6cccc;
+  --color-morty-400: #f0e14a;
+  --color-skin-300: #e4a788;
+  --color-earth-900: #44281d;
+  --color-warn-500: #ffb224;
+  --color-alive-500: #4ade80;
+  --color-dead-500: #f43f5e;
+  --color-text-primary: #e8edf7;
+  --color-text-muted: #8a94ad;
+  --color-border: rgba(232, 237, 247, 0.08);
+
+  --radius-btn: 8px;
+  --radius-card: 16px;
+  --radius-modal: 24px;
+  --shadow-glow: 0 0 24px var(--color-portal-glow);
+
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+:root {
+  --motion-fast: 150ms ease-out;
+  --motion-base: 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-slow: 600ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-text-primary);
+  font: 400 16px/24px var(--font-inter), system-ui, sans-serif;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--color-panel) 70%, transparent);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+.t-display { font: 700 36px/40px var(--font-manrope), system-ui, sans-serif; }
+@media (min-width: 768px) { .t-display { font-size: 56px; line-height: 60px; } }
+.t-h1 { font: 700 36px/44px var(--font-manrope), system-ui, sans-serif; }
+.t-h2 { font: 600 24px/32px var(--font-manrope), system-ui, sans-serif; }
+.t-small { font: 500 13px/18px var(--font-inter), system-ui, sans-serif; }
+.t-mono { font: 500 13px/18px var(--font-jetbrains), ui-monospace, monospace; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@keyframes scan-drift { to { background-position: 0 24px; } }
+.scanlines {
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.05) 0 1px, transparent 1px 4px);
+  background-size: 100% 24px;
+  animation: scan-drift 6s linear infinite;
+}
